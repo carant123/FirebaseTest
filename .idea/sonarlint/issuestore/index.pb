@@ -50,3 +50,25 @@ A
 gradlew,5/b/5bbfa66edb4db3c7c33c5181f43510990d3307f9
 ;
 gradlew.bat,2/a/2a45a911a8f1836b0b6c5b758962572012d8f8c3
+~
+Napp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaDetailActivity.java,f/e/fe3b59ac8497bbfa267dd173c41a6f0e51d53afa
+~
+Napp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaDetailFragment.java,d/8/d85cac75a2c91ded90d6764e50ba8f14e1c0fd60
+|
+Lapp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaListActivity.java,3/2/3229f18b93619f1e4ccb53d81a25258c649cd4b8
+b
+2app/src/main/res/layout/activity_comida_detail.xml,1/c/1c3fbc2161bc5365224cd3ea82f7fffbfe6d81f9
+`
+0app/src/main/res/layout/activity_comida_list.xml,3/3/33f295c23b22a0fd945740653b5b46c72d3d36cb
+Y
+)app/src/main/res/layout/comida_detail.xml,e/d/ed6e6c513deb366afd2e12ac2a834e7cfb097eff
+W
+'app/src/main/res/layout/comida_list.xml,b/7/b7019e61ab7d6c27c9bb525abde618733e099659
+_
+/app/src/main/res/layout/comida_list_content.xml,8/9/89068266a1d3f29558105992f71a60841fe5fd75
+^
+.app/src/main/res/layout-w900dp/comida_list.xml,2/4/2446f82c9c8f366e4381b4697b857843761923d7
+R
+"app/src/main/res/values/dimens.xml,c/3/c3c1811dec2dbad2deeafb9aad505ca9631da740
+|
+Lapp/src/main/java/com/prueba/firebase/pruebafirebase/dummy/DummyContent.java,b/b/bb4f2f8e769b1d3ad62f6e801feb39f50e5970b1

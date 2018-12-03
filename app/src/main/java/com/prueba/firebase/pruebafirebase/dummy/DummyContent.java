@@ -24,7 +24,7 @@ public class DummyContent {
      */
     public static final Map<String, Comida> ITEM_MAP = new HashMap<String, Comida>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 0;
 
     static {
         // Add some sample items.
@@ -33,9 +33,19 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(Comida item) {
+    public static void addItem(Comida item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
+    }
+
+    public static void updateItem(Comida comida){
+        ITEMS.set(ITEMS.indexOf(comida), comida);
+        ITEM_MAP.put(comida.getId(),comida);
+    }
+
+    public static void deleteItem(Comida comida){
+        ITEMS.remove(comida);
+        ITEM_MAP.remove(comida);
     }
 
     private static Comida createDummyItem(int position) {

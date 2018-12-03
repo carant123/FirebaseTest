@@ -2,4 +2,6 @@
     <string name="app_name">PruebaFireBase</string>
     <string name="title_comida_list">Comidas</string>
     <string name="title_comida_detail">Comida Detail</string>
+    <string name="comidaList_dialog_title">Mi Codigo</string>
+    <string name="comidaList_dialog_ok">OK</string>
 </resources>

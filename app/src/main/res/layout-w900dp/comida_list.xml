@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".ComidaListActivity">
+    tools:context=".Crud.ComidaListActivity">
 
     <!--
     This layout is a two-pane layout for the Comidas
@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.prueba.firebase.pruebafirebase.ComidaListActivity"
+        tools:context="com.prueba.firebase.pruebafirebase.Crud.ComidaListActivity"
         tools:listitem="@layout/comida_list_content" />
 
     <FrameLayout

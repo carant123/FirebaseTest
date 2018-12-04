@@ -4,4 +4,6 @@
     <string name="title_comida_detail">Comida Detail</string>
     <string name="comidaList_dialog_title">Mi Codigo</string>
     <string name="comidaList_dialog_ok">OK</string>
+    <string name="normal_channel_id">channel.notification.id</string>
+    <string name="normal_channel_name">channel.notification.name</string>
 </resources>

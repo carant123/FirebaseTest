@@ -1,4 +1,4 @@
-package com.prueba.firebase.pruebafirebase;
+package com.prueba.firebase.pruebafirebase.Crud;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
+import com.prueba.firebase.pruebafirebase.R;
 
 /**
  * An activity representing a single Comida detail screen. This

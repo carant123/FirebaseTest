@@ -1,4 +1,4 @@
-package com.prueba.firebase.pruebafirebase;
+package com.prueba.firebase.pruebafirebase.Crud;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.prueba.firebase.pruebafirebase.dummy.DummyContent;
+import com.prueba.firebase.pruebafirebase.Crud.dummy.DummyContent;
+import com.prueba.firebase.pruebafirebase.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.prueba.firebase.pruebafirebase;
+package com.prueba.firebase.pruebafirebase.Crud;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.prueba.firebase.pruebafirebase.dummy.DummyContent;
+import com.prueba.firebase.pruebafirebase.Crud.dummy.DummyContent;
+import com.prueba.firebase.pruebafirebase.R;
 
 /**
  * A fragment representing a single Comida detail screen.

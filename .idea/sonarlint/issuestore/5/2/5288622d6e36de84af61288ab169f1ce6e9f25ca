@@ -1,0 +1,8 @@
+
+isquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(‰æD8¿ç£´÷,
+ squid:S1186²"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ð¤îÊ8¿ç£´÷,
+osquid:S1301Å"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ8¿ç£´÷,
+~squid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¿ª·ùÿÿÿÿ8¿ç£´÷,
+1squid:S2176µ"Rename this class.(Äß³Ø8¿ç£´÷,
+lsquid:MaximumInheritanceDepth1"<This class has 8 parents which is greater than 5 authorized.(Ò³Š8¿ç£´÷,
+]"squid:SwitchLastCaseIsDefaultCheckÅ""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8¿ç£´÷,

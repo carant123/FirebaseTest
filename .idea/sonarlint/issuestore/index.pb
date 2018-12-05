@@ -50,12 +50,6 @@ A
 gradlew,5/b/5bbfa66edb4db3c7c33c5181f43510990d3307f9
 ;
 gradlew.bat,2/a/2a45a911a8f1836b0b6c5b758962572012d8f8c3
-~
-Napp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaDetailActivity.java,f/e/fe3b59ac8497bbfa267dd173c41a6f0e51d53afa
-~
-Napp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaDetailFragment.java,d/8/d85cac75a2c91ded90d6764e50ba8f14e1c0fd60
-|
-Lapp/src/main/java/com/prueba/firebase/pruebafirebase/ComidaListActivity.java,3/2/3229f18b93619f1e4ccb53d81a25258c649cd4b8
 b
 2app/src/main/res/layout/activity_comida_detail.xml,1/c/1c3fbc2161bc5365224cd3ea82f7fffbfe6d81f9
 `
@@ -70,5 +64,17 @@ _
 .app/src/main/res/layout-w900dp/comida_list.xml,2/4/2446f82c9c8f366e4381b4697b857843761923d7
 R
 "app/src/main/res/values/dimens.xml,c/3/c3c1811dec2dbad2deeafb9aad505ca9631da740
-|
-Lapp/src/main/java/com/prueba/firebase/pruebafirebase/dummy/DummyContent.java,b/b/bb4f2f8e769b1d3ad62f6e801feb39f50e5970b1
+S
+#app/src/main/res/menu/main_menu.xml,d/e/ded5c887bbeaf031e4b264875c385f52e227c161
+Å
+Qapp/src/main/java/com/prueba/firebase/pruebafirebase/Crud/dummy/DummyContent.java,e/2/e2cceb0253f4a54f84ed41f74d6c2b3cb34ba76b
+É
+Sapp/src/main/java/com/prueba/firebase/pruebafirebase/Crud/ComidaDetailActivity.java,9/0/90cf28ed615147046fb7f29e92bef597c4e03993
+É
+Sapp/src/main/java/com/prueba/firebase/pruebafirebase/Crud/ComidaDetailFragment.java,8/7/8764723caa97d120e4efa2a033275c511a6648e8
+Å
+Qapp/src/main/java/com/prueba/firebase/pruebafirebase/Crud/ComidaListActivity.java,5/2/5288622d6e36de84af61288ab169f1ce6e9f25ca
+d
+4app/src/main/res/layout/activity_cloud_messaging.xml,2/1/2181e444311a72e8ffb12687361141d728560f6f
+è
+_app/src/main/java/com/prueba/firebase/pruebafirebase/CloudMessaging/CloudMessagingActivity.java,8/a/8a870fa44489cf8dd10406b0abea07da7a833806

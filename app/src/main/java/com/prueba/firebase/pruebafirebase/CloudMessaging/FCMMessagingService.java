@@ -73,9 +73,10 @@ public class FCMMessagingService extends FirebaseMessagingService {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
-            String channelID = getString(R.string.normal_channel_id);
-            String channelName = getString(R.string.normal_channel_name);
-
+            String channelID = desc <.10? getString(R.string.normal_channel_id) :
+                    getString(R.string.bajo_channel_id);
+            String channelName = desc <.10? getString(R.string.normal_channel_name) :
+                    getString(R.string.bajo_channel_name);
             NotificationChannel channel = new NotificationChannel(channelID,channelName,
                     NotificationManager.IMPORTANCE_DEFAULT);
             channel.enableVibration(true);

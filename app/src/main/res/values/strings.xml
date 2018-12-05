@@ -6,4 +6,6 @@
     <string name="comidaList_dialog_ok">OK</string>
     <string name="normal_channel_id">channel.notification.id</string>
     <string name="normal_channel_name">channel.notification.name</string>
+    <string name="bajo_channel_id">channel2.notification.id</string>
+    <string name="bajo_channel_name">channel2.notification.name</string>
 </resources>

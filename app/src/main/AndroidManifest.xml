@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".Crud.ComidaListActivity"
             android:label="@string/title_comida_list"
@@ -26,7 +25,6 @@
             <!-- </intent-filter> -->
 
         </activity>
-
         <activity
             android:name=".Crud.ComidaDetailActivity"
             android:label="@string/title_comida_detail"
@@ -36,7 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.prueba.firebase.pruebafirebase.Crud.ComidaListActivity" />
         </activity>
-
         <activity android:name=".CloudMessaging.CloudMessagingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,21 +50,25 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".CloudMessaging.FCMIdService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_background"/>
-        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorPrimary"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_background" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
 
+        <activity
+            android:name=".CloudStorage.Fotografia"
+            android:label="@string/title_activity_fotografia"></activity>
     </application>
 
 </manifest>

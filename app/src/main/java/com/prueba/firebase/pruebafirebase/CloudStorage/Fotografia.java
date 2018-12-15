@@ -8,17 +8,22 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.prueba.firebase.pruebafirebase.R;
 
 import java.io.IOException;
@@ -84,21 +89,34 @@ public class Fotografia extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        configureFirebase();
+
+
+    }
+
+    private void configureFirebase() {
+
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mDatabaseReference = database.getReference().child(PATH_PROFILE).child(PATH_PHOTO_URL);
+
     }
 
     private void fromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,RC_GALLERY);
+        startActivityForResult(intent, RC_GALLERY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
-            switch(requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case RC_GALLERY:
-                    if(data != null){
+                    if (data != null) {
                         mPhotoSelectedUri = data.getData();
 
                         try {
@@ -120,6 +138,52 @@ public class Fotografia extends AppCompatActivity {
     }
 
     @OnClick(R.id.btnUpload)
+    public void onUploadPhoto() {
+        StorageReference profileReference = mStorageReference.child(PATH_PROFILE);
+
+        StorageReference photoReference = profileReference.child(MY_PHOTO);
+
+        photoReference.putFile(mPhotoSelectedUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Snackbar.make(container, R.string.main_message_upload_sucess, Snackbar.LENGTH_LONG).show();
+                Uri downloadUri = taskSnapshot.getDownloadUrl();
+                savePhotoUrl(downloadUri);
+                btnDelete.setVisibility(View.VISIBLE);
+                mTextMessage.setText(R.string.main_message_done);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Snackbar.make(container, R.string.main_message_upload_error, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void savePhotoUrl(Uri downloadUri) {
+        // en base de datos local
+        mDatabaseReference.setValue(downloadUri.toString());
+    }
+
+    @OnClick(R.id.btnDelete)
     public void onViewClicked() {
+        mStorageReference.child(PATH_PROFILE).child(MY_PHOTO).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mDatabaseReference.removeValue();
+                        imgPhoto.setImageBitmap(null);
+                        btnDelete.setVisibility(View.GONE);
+                        Snackbar.make(container, R.string.main_message_delete_success,
+                                Snackbar.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Snackbar.make(container, R.string.main_message_delete_error,
+                        Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 }

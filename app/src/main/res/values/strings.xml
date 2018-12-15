@@ -11,4 +11,9 @@
     <string name="title_activity_fotografia">Fotografia</string>
     <string name="main.label.galeria">Galeria</string>
     <string name="main.label.camara">Camara</string>
+    <string name="main_message_upload_sucess">Imagen subida exitosamente</string>
+    <string name="main_message_upload_error">Fallo la subida de imagen</string>
+    <string name="main_message_done">Listo!</string>
+    <string name="main_message_delete_success">La imagen fue eliminada</string>
+    <string name="main_message_delete_error">la imagen no fue eliminada correctamente</string>
 </resources>

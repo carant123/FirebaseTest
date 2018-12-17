@@ -16,4 +16,9 @@
     <string name="main_message_done">Listo!</string>
     <string name="main_message_delete_success">La imagen fue eliminada</string>
     <string name="main_message_delete_error">la imagen no fue eliminada correctamente</string>
+    <string name="main_message_error_notFound">no se encontro la imagen</string>
+    <string name="main_message_question_upload">desea subir?</string>
+    <string name="main.hint.userName">Nombre</string>
+    <string name="main.hint.email">Correo</string>
+    <string name="main.hint.provider">Provider</string>
 </resources>

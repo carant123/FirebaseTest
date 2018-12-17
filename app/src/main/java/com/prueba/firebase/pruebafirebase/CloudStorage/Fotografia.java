@@ -1,14 +1,19 @@
 package com.prueba.firebase.pruebafirebase.CloudStorage;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MenuItem;
@@ -17,16 +22,28 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.prueba.firebase.pruebafirebase.MainActivity;
+import com.prueba.firebase.pruebafirebase.Manifest;
 import com.prueba.firebase.pruebafirebase.R;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +53,11 @@ public class Fotografia extends AppCompatActivity {
 
     private static final int RC_GALLERY = 21;
     private static final int RC_CAMERA = 22;
+    private static final int RC_STORAGE = 23;
 
     private static final int RP_GALLERY = 121;
     private static final int RP_CAMERA = 122;
+    private static final int RP_STORAGE = 123;
 
     private static final String IMAGE_DIRECTORY = "/MyPhotoApp";
     private static final String MY_PHOTO = "my_photo";
@@ -70,15 +89,51 @@ public class Fotografia extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_gallery:
                     mTextMessage.setText(R.string.main_label_galeria);
-                    fromGallery();
+
+                    //fromGallery();
+
+                    checkPermissionToApp(android.Manifest.permission.READ_EXTERNAL_STORAGE, RP_STORAGE);
+
                     return true;
                 case R.id.navigation_camera:
                     mTextMessage.setText(R.string.main_label_camara);
+                    //fromCamara();
+                    dispatchTakePictureIntent();
                     return true;
             }
             return false;
         }
     };
+
+    private void checkPermissionToApp(String permissionStr, int requestPermission) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(ContextCompat.checkSelfPermission(this,permissionStr) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,new String[]{permissionStr}, requestPermission);
+                return;
+            }
+        }
+
+        switch (requestPermission){
+            case RP_STORAGE:
+                fromGallery();
+                break;
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            switch (requestCode){
+                case RP_STORAGE:
+                    fromGallery();
+                    break;
+            }
+        }
+
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +147,64 @@ public class Fotografia extends AppCompatActivity {
 
         configureFirebase();
 
+        configPhotoProfile();
+
 
     }
+
+    private void configPhotoProfile() {
+
+        // llamar a firebase
+
+//        mStorageReference.child(PATH_PROFILE).child(MY_PHOTO).getDownloadUrl()
+//                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//
+//                        final RequestOptions options = new RequestOptions()
+//                                .centerCrop()
+//                                .diskCacheStrategy(DiskCacheStrategy.ALL);
+//
+//                        Glide.with(Fotografia.this)
+//                                .load("https://101android.com/wp-content/uploads/2018/09/Glide-Library-Logo-Android-Image.png")
+//                                .apply(options)
+//                                .into(imgPhoto);
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        btnDelete.setVisibility(View.GONE);
+//                        Snackbar.make(container, R.string.main_message_error_notFound, Snackbar.LENGTH_LONG).show();
+//                    }
+//                });
+
+
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+                Glide.with(Fotografia.this)
+                        .load("https://101android.com/wp-content/uploads/2018/09/Glide-Library-Logo-Android-Image.png")
+                        .apply(options)
+                        .into(imgPhoto);
+
+                btnDelete.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Snackbar.make(container, R.string.main_message_error_notFound, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+
+
+    }
+
 
     private void configureFirebase() {
 
@@ -108,6 +219,40 @@ public class Fotografia extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RC_GALLERY);
     }
+
+    private void fromCamara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, RC_CAMERA);
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
+            File photoFile;
+            photoFile = createImageFile();
+        }
+    }
+
+    private File createImageFile() {
+        final String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HHmmss", Locale.ROOT)
+                .format(new Date());
+        final String imageFileName = MY_PHOTO + timeStamp + "_";
+        // directorio externo privado para el aplicativo
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = null;
+
+        try {
+            image = File.createTempFile(imageFileName, ".jpg", storageDir);
+            mCurrentPhotoPath = image.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,9 +277,34 @@ public class Fotografia extends AppCompatActivity {
 
                     break;
                 case RC_CAMERA:
+//                    Bundle extras = data.getExtras();
+//                    Bitmap bitmap = (Bitmap) extras.get("data");
+
+                    mPhotoSelectedUri = addPickGallery();
+
+                    try{
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),
+                                mPhotoSelectedUri);
+                        imgPhoto.setImageBitmap(bitmap);
+                        btnDelete.setVisibility(View.GONE);
+                        mTextMessage.setText(R.string.main_message_question_upload);
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
                     break;
             }
         }
+    }
+
+    private Uri addPickGallery() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File file = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+        mCurrentPhotoPath =null;
+        return contentUri;
     }
 
     @OnClick(R.id.btnUpload)
